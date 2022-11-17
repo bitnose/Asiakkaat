@@ -33,7 +33,7 @@ public class Dao {
 		return con;
 	}
 
-	private void sulje() {		
+	private void sulje() {
 		if (stmtPrep != null) {
 			try {
 				stmtPrep.close();
@@ -57,11 +57,10 @@ public class Dao {
 			}
 		}
 	}
-	
 
 	public ArrayList<Asiakas> getAllItems() {
 		ArrayList<Asiakas> asiakkaat = new ArrayList<Asiakas>();
-		sql = "SELECT * FROM asiakkaat";
+		sql = "SELECT * FROM asiakkaat ORDER BY asiakas_id DESC";
 		try {
 			con = yhdista();
 			if (con != null) { // jos yhteys onnistui
@@ -86,4 +85,36 @@ public class Dao {
 		}
 		return asiakkaat;
 	}
+
+	public ArrayList<Asiakas> getAllItems(String searchStr) { // Metodeja voi kuormittaa, kunhan parametreiss� eroja
+		ArrayList<Asiakas> asiakkaat = new ArrayList<Asiakas>();
+		sql = "SELECT * FROM asiakkaat WHERE etunimi LIKE ? or sukunimi LIKE ? or puhelin LIKE ? or sposti LIKE ? ORDER BY asiakas_id DESC";
+		try {
+			con = yhdista();
+			if (con != null) { // jos yhteys onnistui
+				stmtPrep = con.prepareStatement(sql);
+				stmtPrep.setString(1, "%" + searchStr + "%");
+				stmtPrep.setString(2, "%" + searchStr + "%");
+				stmtPrep.setString(3, "%" + searchStr + "%");
+				rs = stmtPrep.executeQuery();
+				if (rs != null) { // jos kysely onnistui
+					while (rs.next()) {
+						Asiakas asiakas = new Asiakas();
+						asiakas.setId(rs.getInt(1));
+						asiakas.setEtunimi(rs.getString(2));
+						asiakas.setSukunimi(rs.getString(3));
+						asiakas.setPuhelin(rs.getString(4));
+						asiakas.setSposti(rs.getString(5));
+						asiakkaat.add(asiakas);
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			sulje();
+		}
+		return asiakkaat;
+	}
+
 }

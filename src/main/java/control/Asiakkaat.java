@@ -18,36 +18,48 @@ import model.dao.Dao;
 @WebServlet("/asiakkaat/*")
 public class Asiakkaat extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    public Asiakkaat() {
-    	// Control space 
-        System.out.println("Asiakkaat.Asiakkaat()");
-  
-        
-    }
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
+	public Asiakkaat() {
+		// Control space
+		System.out.println("Asiakkaat.Asiakkaat()");
+
+	}
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		// response.getWriter().append("Served at: ").append(request.getContextPath());
 		System.out.println("Asiakkaat.doGet()");
+		String hakusana = request.getParameter("hakusana");
 		Dao dao = new Dao();
-		ArrayList<Asiakas> asiakkaat = dao.getAllItems();
-		String strJSON = new Gson().toJson(asiakkaat);
+		ArrayList<Asiakas> asiakkaat;
+		String strJSON = "";
+		if (hakusana != null) {// Jos kutsun mukana tuli hakusana
+			if (!hakusana.equals("")) {// Jos hakusana ei ole tyhjä
+				asiakkaat = dao.getAllItems(hakusana); // Haetaan kaikki hakusanan mukaiset autot
+			} else {
+				asiakkaat = dao.getAllItems(); // Haetaan kaikki autot
+			}
+			strJSON = new Gson().toJson(asiakkaat);
+		}
 		response.setContentType("application/json; charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		out.println(strJSON);
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		System.out.println("Asiakkaat.doPost()");
-		//doGet(request, response);
+		// doGet(request, response);
 	}
 
-	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPut(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		System.out.println("Asiakkaat.doPut()");
 	}
 
-	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doDelete(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		System.out.println("Asiakkaat.doDelete()");
 	}
 

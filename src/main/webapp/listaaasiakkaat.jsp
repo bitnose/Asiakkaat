@@ -10,14 +10,19 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<table id="listaus">
+	<table id="asiakkaat">
 		<thead>
+			<tr>
+				<th colspan="2" text-align="left">Hakusana:</th>
+				<th><input type="text" id="hakusana"></th>
+				<th><input type="button" value="hae" id="hakunappi"
+					onclick="haeAsiakkaat()"></th>
+			</tr>
 			<tr>
 				<th>Etunimi</th>
 				<th>Sukunimi</th>
 				<th>Puhelin</th>
 				<th>Sähköposti</th>
-				<th></th>
 			</tr>
 		</thead>
 		<tbody id="tbody">
