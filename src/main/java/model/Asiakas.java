@@ -1,7 +1,7 @@
 package model;
 
 public class Asiakas {
-	private int id;
+	private int asiakas_id;
 	private String etunimi, sukunimi, sposti, puhelin;
 
 	public Asiakas() {
@@ -9,9 +9,9 @@ public class Asiakas {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Asiakas(int id, String etunimi, String sukunimi, String sposti, String puhelin) {
+	public Asiakas(int asiakas_id, String etunimi, String sukunimi, String sposti, String puhelin) {
 		super();
-		this.id = id;
+		this.asiakas_id = asiakas_id;
 		this.etunimi = etunimi;
 		this.sukunimi = sukunimi;
 		this.sposti = sposti;
@@ -19,11 +19,11 @@ public class Asiakas {
 	}
 	
 	public int getId() {
-		return id;
+		return asiakas_id;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setId(int asiakas_id) {
+		this.asiakas_id = asiakas_id;
 	}
 
 	public String getEtunimi() {
@@ -60,7 +60,7 @@ public class Asiakas {
 
 	@Override
 	public String toString() {
-		return "Asiakas [id="+ id + ", etunimi=" + etunimi + ", sukunimi=" + sukunimi + ", sposti=" + sposti
+		return "Asiakas [asiakas_id="+ asiakas_id + ", etunimi=" + etunimi + ", sukunimi=" + sukunimi + ", sposti=" + sposti
 				+ ", puhelin=" + puhelin + "]";
 	}
 
