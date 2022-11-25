@@ -117,6 +117,7 @@ public class Dao {
 		return asiakkaat;
 	}
 	
+	// Lisää asiakas
 	public boolean addItem(Asiakas asiakas) {
 		boolean paluuArvo = true;
 		sql = "INSERT INTO asiakkaat(etunimi, sukunimi, puhelin, sposti)VALUES(?,?,?,?)";
@@ -137,6 +138,22 @@ public class Dao {
 		return paluuArvo;
 	}
 	
-	
+	// Poista asiaskas
+	public boolean removeItem(int asiakas_id) {
+		boolean paluuArvo = true;
+		sql = "DELETE FROM asiakkaat WHERE asiakas_id=?";
+		try {
+			con = yhdista();
+			stmtPrep = con.prepareStatement(sql);
+			stmtPrep.setInt(1, asiakas_id);
+			stmtPrep.executeUpdate();		
+		} catch (Exception e) {
+			paluuArvo=false;
+			e.printStackTrace();
+		} finally {
+			sulje();
+		}
+		return paluuArvo;
+	}
 
 }

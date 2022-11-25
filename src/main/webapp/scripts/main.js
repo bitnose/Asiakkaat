@@ -20,22 +20,7 @@ function haeAsiakkaat() {
 		.catch(errorText => console.error("Fetch failed: " + errorText));
 }
 
-//Kirjoitetaan tiedot taulukkoon JSON-objektilistasta
-function printItems(respObjList) {
-	//console.log(respObjList);
-	let htmlStr = "";
-	for (let item of respObjList) {//yksi kokoelmalooppeista		
-		htmlStr += "<td>" + item.etunimi + "</td>";
-		htmlStr += "<td>" + item.sukunimi + "</td>";
-		htmlStr += "<td>" + item.puhelin + "</td>";
-		htmlStr += "<td>" + item.sposti + "</td>";
-		htmlStr += "<td><span class='poista' onclick=varmistaPoisto(" + item.asiakas_id + ",'" + encodeURI(item.id) + "')>Poista</span></td>"; //encodeURI() muutetaan erikoismerkit, välilyönnit jne. UTF-8 merkeiksi.
 
-
-		htmlStr += "</tr>";
-	}
-	document.getElementById("tbody").innerHTML = htmlStr;
-}
 
 //Kirjoitetaan tiedot taulukkoon JSON-objektilistasta
 function printItems(respObjList) {
@@ -47,7 +32,7 @@ function printItems(respObjList) {
 		htmlStr += "<td>" + item.sukunimi + "</td>";
 		htmlStr += "<td>" + item.puhelin + "</td>";
 		htmlStr += "<td>" + item.sposti + "</td>";
-		htmlStr += "<td><span class='poista' onclick=varmistaPoisto(" + item.asiakas_id + ",'" + encodeURI(item.etunimi) + encodeURI(item.sukunimi) + "')>Poista</span></td>"; //encodeURI() muutetaan erikoismerkit, välilyönnit jne. UTF-8 merkeiksi.
+		htmlStr += "<td><span class='poista' onclick=varmistaPoisto(" + item.asiakas_id + ",'" + encodeURI(item.etunimi) + "','"+encodeURI(item.sukunimi) +"')>Poista</span></td>"; //encodeURI() muutetaan erikoismerkit, välilyönnit jne. UTF-8 merkeiksi.
 		htmlStr += "</tr>";
 	}
 	document.getElementById("tbody").innerHTML = htmlStr;
@@ -123,7 +108,7 @@ function lisaaTiedot() {
 }
 
 function varmistaPoisto(asiakas_id, etunimi, sukunimi) {
-	if (confirm("Poista asiakas " + decodeURI(etunimi) + decodeURI(sukunimi) + "?")) { //decodeURI() muutetaan enkoodatut merkit takaisin normaaliksi kirjoitukseksi
+	if (confirm("Poista asiakas " + decodeURI(etunimi) + " " + decodeURI(sukunimi) + "?")) { //decodeURI() muutetaan enkoodatut merkit takaisin normaaliksi kirjoitukseksi
 		poistaAsiakas(asiakas_id, encodeURI(etunimi), encodeURI(sukunimi));
 	}
 }
@@ -142,7 +127,7 @@ function poistaAsiakas(asiakas_id, etunimi, sukunimi) {
 				alert("Asiakkaan poisto epäonnistui.");
 			} else if (responseObj.response == 1) {
 				document.getElementById("rivi_" + asiakas_id).style.backgroundColor = "red";
-				alert("Asiakkaan " + decodeURI(etunimi) + decodeURI(sukunimi) + " poisto onnistui."); //decodeURI() muutetaan enkoodatut merkit takaisin normaaliksi kirjoitukseksi
+				alert("Asiakkaan " + etunimi + " " + sukunimi + " poisto onnistui."); //decodeURI() muutetaan enkoodatut merkit takaisin normaaliksi kirjoitukseksi
 				haeAsiakkaat();
 			}
 		})
