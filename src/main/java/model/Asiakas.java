@@ -18,11 +18,11 @@ public class Asiakas {
 		this.puhelin = puhelin;
 	}
 	
-	public int getId() {
+	public int getAsiakas_Id() {
 		return asiakas_id;
 	}
 
-	public void setId(int asiakas_id) {
+	public void setAsiakas_Id(int asiakas_id) {
 		this.asiakas_id = asiakas_id;
 	}
 

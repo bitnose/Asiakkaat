@@ -5,19 +5,22 @@
 <head>
 
 <meta charset="UTF-8">
-<link rel="stylesheet" type="text/css" href="css/main.css">
 <script src="scripts/main.js"></script>
+<script src="scripts/io.js"></script>
+<link rel="stylesheet" type="text/css" href="css/main.css">
+
 <title>Insert title here</title>
 </head>
-<body>
+<body  onload="asetaFocus('hakusana')" onkeydown="tutkiKey(event, 'listaa')">
 	<table id="asiakkaat">
 		<thead>
 			<tr>
-				<th colspan="5" class="oikealle"><a id="linkki" href="lisaaasiakas.jsp">Lisää asiakas</a></th>
+				<th colspan="5" class="oikealle"><a id="linkki"
+					href="lisaaasiakas.jsp">Lisää asiakas</a></th>
 			</tr>
 			<tr>
 				<th>Hakusana:</th>
-				<th  colspan="3"><input type="text" id="hakusana"></th>
+				<th colspan="3"><input type="text" id="hakusana"></th>
 				<th><input type="button" value="hae" id="hakunappi"
 					onclick="haeAsiakkaat()"></th>
 			</tr>
@@ -32,5 +35,9 @@
 		<tbody id="tbody">
 		</tbody>
 	</table>
+	<span id="ilmo"></span>
+	<script>
+		haeAsiakkaat();
+	</script>
 </body>
 </html>

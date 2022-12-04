@@ -5,13 +5,13 @@
 <head>
 <meta charset="UTF-8">
 <script src="scripts/main.js"></script>
-<link rel="stylesheet" type="text/css" href="css/main.css">
 <script src="scripts/io.js"></script>
-
-<title>Asiakkaan lisäys</title>
+<link rel="stylesheet" type="text/css" href="css/main.css">
+<title>Muuta asiakas</title>
 </head>
-<body>
-	<form name="lomake" >
+<body onload="asetaFocus('asiakas_id')"
+	onkeydown="tutkiKey(event, 'paivita')">
+	<form name="lomake">
 		<table id="asiakkaat">
 			<thead>
 				<tr>
@@ -32,12 +32,16 @@
 					<td><input type="text" name="sukunimi" id="sukunimi" /></td>
 					<td><input type="text" name="puhelin" id="puhelin" /></td>
 					<td><input type="email" name="sposti" id="sposti" /></td>
-					<td><input type="button" value="Lisää"
-						onclick="tutkiJaLisaa()" /></td>
+					<td><input type="button" id="tallenna" value="Hyväksy"
+						onclick="tutkiJaPaivita()"></td>
 				</tr>
 			</tbody>
 		</table>
+		<input type="hidden" name="asiakas_id" id="asiakas_id">
 	</form>
-	<p id="ilmo"></p>
+	<span id="ilmo"></span>
 </body>
+<script>
+	haeAsiakas();
+</script>
 </html>

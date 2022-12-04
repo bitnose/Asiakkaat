@@ -32,16 +32,20 @@ public class Asiakkaat extends HttpServlet {
 		// response.getWriter().append("Served at: ").append(request.getContextPath());
 		System.out.println("Asiakkaat.doGet()");
 		String hakusana = request.getParameter("hakusana");
+		String asiakas_id = request.getParameter("asiakas_id");
 		Dao dao = new Dao();
 		ArrayList<Asiakas> asiakkaat;
 		String strJSON = "";
 		if (hakusana != null) {// Jos kutsun mukana tuli hakusana
 			if (!hakusana.equals("")) {// Jos hakusana ei ole tyhjä
-				asiakkaat = dao.getAllItems(hakusana); // Haetaan kaikki hakusanan mukaiset autot
+				asiakkaat = dao.getAllItems(hakusana); // Haetaan kaikki hakusanan mukaiset asiakkaat
 			} else {
-				asiakkaat = dao.getAllItems(); // Haetaan kaikki autot
+				asiakkaat = dao.getAllItems(); // Haetaan kaikki asiakkaat
 			}
 			strJSON = new Gson().toJson(asiakkaat);
+		} else if (asiakas_id != null) {
+			Asiakas asiakas = dao.getItem(Integer.parseInt(asiakas_id));
+			strJSON = new Gson().toJson(asiakas);
 		}
 		response.setContentType("application/json; charset=UTF-8");
 		PrintWriter out = response.getWriter();
@@ -67,10 +71,23 @@ public class Asiakkaat extends HttpServlet {
 		}
 	}
 
-	// Tietojen muokkaaminen 
+	// Tietojen muokkaaminen
 	protected void doPut(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		System.out.println("Asiakkaat.doPut()");
+		// Luetaan JSON-tiedot PUT-pyynnön bodysta ja luodaan niiden perusteella uusi
+		String strJSONInput = request.getReader().lines().collect(Collectors.joining());
+		// System.out.println("strJSONInput " + strJSONInput);
+		Asiakas asiakas = new Gson().fromJson(strJSONInput, Asiakas.class);
+		 System.out.println(asiakas);
+		response.setContentType("application/json; charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		Dao dao = new Dao();
+		if (dao.changeItem(asiakas)) { // metodi palauttaa true/false
+			out.println("{\"response\":1}"); // Asiakkaan muuttaminen onnistui {"response":1}
+		} else {
+			out.println("{\"response\":0}"); // Asiakkaan muuttaminen epäonnistui {"response":0}
+		}
 	}
 
 	// Tietojen poistaminen
