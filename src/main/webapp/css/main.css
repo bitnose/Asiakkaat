@@ -1,53 +1,63 @@
 #asiakkaat {
-  font-family: Arial, Helvetica, sans-serif;
-  border-collapse: collapse;
-  width: 50%;
+	font-family: Arial, Helvetica, sans-serif;
+	border-collapse: collapse;
+	width: 50%;
 }
 
 #asiakkaat td, #asiakkaat th {
-  border: 1px solid #ddd;
-  padding: 8px;
+	border: 1px solid #ddd;
+	padding: 8px;
 }
 
-#asiakkaat tr:nth-child(even){background-color: #f2f2f2;}
-
+#asiakkaat tr:nth-child(even) {
+	background-color: #f2f2f2;
+}
 
 #asiakkaat th {
-  padding-top: 12px;
-  padding-bottom: 12px;
-  text-align: left;
-  background-color: #04AA6D;
-  color: white;
+	padding-top: 12px;
+	padding-bottom: 12px;
+	text-align: left;
+	background-color: #04AA6D;
+	color: white;
 }
 
 #asiakkaat .button {
 	border-radius: 0px;
-	
 }
 
-
-#asiakkaat .poista{
+#asiakkaat .poista {
 	color: red;
 	text-decoration: underline;
-	cursor: pointer;	
+	cursor: pointer;
 }
 
-
-
-#uusiAsiakas, #takaisin{
-	color: white;	
-	cursor: pointer;	
+#uusiAsiakas, #takaisin {
+	color: white;
+	cursor: pointer;
 }
-
 
 #linkki {
 	color: white;
 	text-decoration: none;
 }
 
-#linkki .oikealle{
+#linkki .oikealle {
 	text-align: right;
 	color: white;
-		
-	
+}
+
+#loginDiv {
+	position: absolute;
+	border: 1px solid;
+	padding: 20px;
+	border-radius: 10px;
+	left: 35%;
+	top: 10%;
+	background-color: white;
+}
+
+label {
+	display: block;
+	width: 5em;
+	float: left;
 }
